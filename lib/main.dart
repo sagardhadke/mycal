@@ -64,6 +64,16 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     });
   }
 
+  void backspace() {
+    setState(() {
+      if (display.length > 1) {
+        display = display.substring(0, display.length - 1);
+      } else {
+        display = '0'; // Reset to '0' if nothing is left
+      }
+    });
+  }
+
   String calculateResult() {
     switch (operator) {
       case '+':
@@ -179,6 +189,30 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   child: Text(
                     '=',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // Row for the backspace button
+          Row(
+            children: [
+              Expanded(
+                child: Container(), // Empty to take up space on the left side
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: backspace,
+                  child: Icon(
+                    Icons.backspace_outlined,
+                    size: 32,
+                    color: Colors.white,
                   ),
                 ),
               ),
